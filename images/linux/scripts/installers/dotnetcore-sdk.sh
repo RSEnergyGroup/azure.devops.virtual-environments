@@ -67,7 +67,25 @@ done
 
 # Download additional SDKs
 echo "Downloading release tarballs..."
-cat urls | xargs -n 1 -P 16 wget -q
+
+## to avoid failing on network glitches
+## we iterate $max_iter times and try to [re]download
+## failed components
+ret=255
+iter=0
+max_iter=5
+
+set -x
+set +e
+until [ \( "${ret}" -eq 0 \) -o \( "$iter" -ge "$max_iter" \) ]
+do
+    cat urls | xargs -n 1 -P 16 wget -nv --progress=dot:giga -nc
+    ret=$?
+    ((iter++))
+done
+set +x
+set -e
+
 for tarball in *.tar.gz; do
     dest="./tmp-$(basename -s .tar.gz $tarball)"
     echo "Extracting $tarball to $dest"

@@ -5,6 +5,9 @@
 ################################################################################
 
 source $HELPER_SCRIPTS/install.sh
+set -a
+source /etc/environment
+set +a
 
 # This function installs PyPy using the specified arguments:
 #   $1=PACKAGE_URL

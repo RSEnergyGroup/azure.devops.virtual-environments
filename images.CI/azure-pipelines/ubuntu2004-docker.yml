@@ -1,0 +1,60 @@
+schedules:
+- cron: "0 0 * * *"
+  displayName: Daily
+  branches:
+    include:
+    - main
+  always: true
+
+trigger: none
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - main
+
+pool:
+  name: $(pool_name)
+
+
+jobs:
+- job: build_container
+  timeoutInMinutes: 600
+  cancelTimeoutInMinutes: 30
+  variables:
+    - name: tags
+      value: |
+        latest
+        $(Build.SourceBranchName)
+        $(Build.SourceBranchName)-$(Build.BuildId)
+  steps:
+    - bash: |
+        tags_list=""
+        my_tags=$(echo ${TAGS})
+        for tag in ${my_tags}
+        do
+          if [ -n "${tag_list}" ]
+          then
+            tag_list="${tag_list},${tag}"
+          else
+            tag_list="${tag}"
+          fi
+        done
+        tag_list="${tag_list}"
+        echo "##vso[task.setvariable variable=TAG_LIST]${tag_list}"
+    - bash: |
+        echo "Will build tags: ${TAG_LIST}"
+        packer build -var github_feed_token="$(github_feed_token)" -var "container_repository=$(container_repository_base)/$(container_repository_name)" -var "container_tags=${TAG_LIST}" ubuntu2004-docker.json
+      workingDirectory: images/linux
+    - task: Docker@2
+      inputs:
+        command: login
+        containerRegistry: $(container_registry_connection)
+      displayName: Docker login
+    - task: Docker@2
+      inputs:
+        command: push
+        repository: $(container_repository_name)
+        containerRegistry: $(container_registry_connection)
+        tags: $(tags)
+      displayName: Docker push
