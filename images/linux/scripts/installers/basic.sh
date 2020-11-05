@@ -6,63 +6,10 @@
 
 set -e
 # Source the helpers for use with the script
-source $HELPER_SCRIPTS/document.sh
+# source $HELPER_SCRIPTS/document.sh
 source $HELPER_SCRIPTS/os.sh
 
 set -e
-
-common_packages="dnsutils
-                 systemd
-                 iproute2
-                 iputils-ping
-                 libunwind8
-                 locales
-                 openssh-client
-                 tzdata
-                 upx
-                 zstd
-                 libxkbfile-dev
-                 pkg-config
-                 libsecret-1-dev
-                 libxss1
-                 libgconf-2-4
-                 dbus
-                 xvfb
-                 libgbm-dev
-                 libgtk-3-0
-                 tk
-                 fakeroot
-                 dpkg
-                 rpm
-                 xz-utils
-                 xorriso
-                 zsync
-                 gnupg2
-                 lib32z1
-                 texinfo
-                 libsqlite3-dev"
-
-cmd_packages="curl
-              file
-              ftp
-              jq
-              netcat
-              ssh
-              parallel
-              rsync
-              shellcheck
-              sudo
-              telnet
-              time
-              unzip
-              zip
-              wget
-              m4
-              bison
-              flex
-              patchelf
-              bzip2
-              sqlite3"
 
 if isUbuntu20 ; then
     echo "Install python2"
