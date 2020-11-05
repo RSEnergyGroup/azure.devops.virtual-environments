@@ -56,4 +56,3 @@ DocumentInstalledItem "Docker-Moby ($docker_version)"
 
 echo "Documenting Docker-buildx version"
 DOCKER_BUILDX_VERSION=$(docker buildx version | cut -d ' ' -f2)
-DocumentInstalledItem "Docker-Buildx ($DOCKER_BUILDX_VERSION)"
