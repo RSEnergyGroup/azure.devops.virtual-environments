@@ -60,7 +60,7 @@
         },
         {
             "type": "shell",
-            "script": "{{template_dir}}/scripts/base/apt.sh",
+            "script": "{{template_dir}}/scripts/base/apt-docker.sh",
             "execute_command": "sh -c '{{ .Vars }} {{ .Path }}'"
         },
         {
