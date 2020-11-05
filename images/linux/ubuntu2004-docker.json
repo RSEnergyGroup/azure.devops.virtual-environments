@@ -177,7 +177,7 @@
                 "{{template_dir}}/scripts/installers/bazel.sh",
                 "{{template_dir}}/scripts/installers/phantomjs.sh",
                 "{{template_dir}}/scripts/installers/pollinate.sh",
-                "{{template_dir}}/scripts/installers/postgresql.sh",
+                "{{template_dir}}/scripts/installers/postgresql-docker.sh",
                 "{{template_dir}}/scripts/installers/powershellcore.sh",
                 "{{template_dir}}/scripts/installers/sbt.sh",
                 "{{template_dir}}/scripts/installers/selenium.sh",
